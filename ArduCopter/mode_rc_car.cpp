@@ -97,7 +97,7 @@ void ModeRCCar::run()
     // get_pilot_desired_lean_angles(target_roll, target_pitch, copter.aparm.angle_max, attitude_control->get_althold_lean_angle_max_cd());
 
     // get pilot's desired yaw rate
-    float target_yaw_rate = get_pilot_desired_yaw_rate(channel_yaw->norm_input_dz());
+    // float target_yaw_rate = get_pilot_desired_yaw_rate(channel_yaw->norm_input_dz());
 
     // get pilot desired climb rate
     float target_climb_rate = get_pilot_desired_climb_rate(channel_throttle->get_control_in());
@@ -146,7 +146,7 @@ void ModeRCCar::run()
 #endif
 
         // get avoidance adjusted climb rate
-        target_climb_rate = get_avoidance_adjusted_climbrate(target_climb_rate);
+        // target_climb_rate = get_avoidance_adjusted_climbrate(target_climb_rate);
 
         // update the vertical offset based on the surface measurement
         copter.surface_tracking.update_surface_offset();

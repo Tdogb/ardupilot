@@ -1920,11 +1920,12 @@ class ModeRCCar : public Mode {
 public:
    // inherit constructor
    using Mode::Mode;
+   Number mode_number() const override { return Number::RC_CAR_MODE; }
    bool init(bool ignore_checks) override;
    void run() override;
    bool requires_GPS() const override { return false; }
    bool has_manual_throttle() const override { return true; }
-   bool allows_arming(bool from_gcs) const override { return true; };
+   bool allows_arming(AP_Arming::Method method) const override { return false; };
    bool is_autopilot() const override { return false; }
 
 protected:
@@ -1933,7 +1934,7 @@ protected:
 private:
     float get_throttle_assist(float velz, float pilot_throttle_scaled);
 
-}
+};
 
 // class Mode2DPos : public Mode {
 // public:
@@ -1949,4 +1950,4 @@ private:
 // protected:
 //    const char *name() const override { return "2DPOSHOLD"; }
 //    const char *name4() const override { return "2POS"; }
-// }
+// };

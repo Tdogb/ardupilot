@@ -202,6 +202,7 @@ public:
     friend class ModeAcro;
     friend class ModeAcro_Heli;
     friend class ModeAltHold;
+    friend class ModeRCCar;
     friend class ModeAuto;
     friend class ModeAutoTune;
     friend class ModeAvoidADSB;
@@ -228,10 +229,10 @@ public:
 
     Copter(void);
 
+    AP_MultiCopter aparm;
 private:
 
     // key aircraft parameters passed to multiple libraries
-    AP_MultiCopter aparm;
 
     // Global parameters are all contained within the 'g' class.
     Parameters g;
