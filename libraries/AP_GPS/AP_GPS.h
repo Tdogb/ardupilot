@@ -248,8 +248,25 @@ public:
     // Pass mavlink data to message handlers (for MAV type)
     void handle_msg(mavlink_channel_t chan, const mavlink_message_t &msg);
 #if HAL_MSP_GPS_ENABLED
-    void handle_msp(const MSP::msp_gps_data_message_t &pkt);
+    void handle_msp(const MSP::msp_gps_data_message_t &pkt); 
 #endif
+    // struct tornado_custom_sensors_temp_packet {
+    //     uint32_t timeMs;
+    //     uint16_t humidity;
+    //     uint16_t temp_SHT;
+    //     uint32_t pressure_lps;
+    //     uint16_t temp_lps;
+    //     uint16_t temp_ds18b20;
+    //     uint32_t differential_pressure_forward;
+    //     uint32_t forward_die_temp;
+    //     uint32_t differential_pressure_up; 
+    //     uint32_t up_die_temp;
+    //     uint32_t differential_pressure_side;
+    //     uint32_t side_die_temp;
+    // };
+    MSP::msp_get_custom_sensors_t pkt_copy;
+    void handle_msp_tornado_custom_sensors(const MSP::msp_get_custom_sensors_t &pkt);
+    MSP::msp_get_custom_sensors_t& get_msp_tornado_custom_sensors_packet();
 #if HAL_EXTERNAL_AHRS_ENABLED
     // Retrieve the first instance ID that is configured as type GPS_TYPE_EXTERNAL_AHRS.
     // Can be used by external AHRS systems that only report one GPS to get the instance ID.

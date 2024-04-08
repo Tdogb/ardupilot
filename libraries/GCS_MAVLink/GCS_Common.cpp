@@ -1085,6 +1085,7 @@ ap_message GCS_MAVLINK::mavlink_id_to_ap_message_id(const uint32_t mavlink_id) c
 #if AP_MAVLINK_MSG_RELAY_STATUS_ENABLED
         { MAVLINK_MSG_ID_RELAY_STATUS, MSG_RELAY_STATUS},
 #endif
+        { MAVLINK_MSG_ID_TORNADO_SENSORS, MSG_TORNADO_SENSORS},
             };
 
     for (uint8_t i=0; i<ARRAY_SIZE(map); i++) {
@@ -6199,6 +6200,9 @@ bool GCS_MAVLINK::try_send_message(const enum ap_message id)
         ret = send_relay_status();
         break;
 #endif
+    case MSG_TORNADO_SENSORS:
+        send_tornado_sensors();
+        break;
 
     default:
         // try_send_message must always at some stage return true for
@@ -6214,6 +6218,15 @@ bool GCS_MAVLINK::try_send_message(const enum ap_message id)
     }
 
     return ret;
+}
+
+void GCS_MAVLINK::send_tornado_sensors()
+{
+    MSP::msp_get_custom_sensors_t& pkt = AP::gps().get_msp_tornado_custom_sensors_packet();
+    mavlink_msg_tornado_sensors_send(chan, pkt.timeMs,pkt.humidity,pkt.temp_SHT,pkt.pressure_lps,pkt.temp_lps,pkt.temp_ds18b20, pkt.differential_pressure_forward, pkt.forward_die_temp, pkt.differential_pressure_up, pkt.up_die_temp, pkt.differential_pressure_side, pkt.side_die_temp);
+    mavlink_msg_debug_send(chan, pkt.timeMs, 0, pkt.humidity);
+    mavlink_msg_debug_send(chan, pkt.timeMs, 1, pkt.pressure_lps);
+    mavlink_msg_debug_send(chan, pkt.timeMs, 2, pkt.temp_ds18b20);
 }
 
 uint16_t GCS_MAVLINK::get_interval_for_stream(GCS_MAVLINK::streams id) const

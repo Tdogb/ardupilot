@@ -1375,6 +1375,15 @@ void AP_GPS::handle_msp(const MSP::msp_gps_data_message_t &pkt)
 }
 #endif // HAL_MSP_GPS_ENABLED
 
+void AP_GPS::handle_msp_tornado_custom_sensors(const MSP::msp_get_custom_sensors_t &pkt)
+{
+    pkt_copy = pkt;
+}
+
+MSP::msp_get_custom_sensors_t& AP_GPS::get_msp_tornado_custom_sensors_packet()
+{
+    return pkt_copy;
+}
 #if HAL_EXTERNAL_AHRS_ENABLED
 
 bool AP_GPS::get_first_external_instance(uint8_t& instance) const

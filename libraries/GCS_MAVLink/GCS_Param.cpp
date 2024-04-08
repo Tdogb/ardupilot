@@ -184,6 +184,10 @@ void GCS_MAVLINK::handle_request_data_stream(const mavlink_message_t &msg)
     case MAV_DATA_STREAM_EXTRA3:
         stream_id = STREAM_EXTRA3;
         break;
+    case MAV_DATA_STREAM_TORNADO:
+        GCS_SEND_TEXT(MAV_SEVERITY_INFO,"stream");
+        stream_id = STREAM_TORNADO;
+        break;
     }
 
     if (stream_id == NUM_STREAMS) {

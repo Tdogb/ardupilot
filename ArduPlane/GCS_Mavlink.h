@@ -4,6 +4,7 @@
 #include <AP_Logger/AP_Logger.h>
 #include <AP_Airspeed/AP_Airspeed_config.h>
 #include "quadplane.h"
+#include <AP_MSP/msp_sensors.h>
 
 class GCS_MAVLINK_Plane : public GCS_MAVLINK
 {

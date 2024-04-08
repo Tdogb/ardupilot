@@ -43,6 +43,21 @@ typedef struct PACKED {
 } msp_gps_data_message_t;
 
 typedef struct PACKED {
+  uint32_t timeMs;
+  uint16_t humidity;
+  uint16_t temp_SHT;
+  uint32_t pressure_lps;
+  uint16_t temp_lps;
+  uint16_t temp_ds18b20;
+  uint32_t differential_pressure_forward;
+  uint32_t forward_die_temp;
+  uint32_t differential_pressure_up; 
+  uint32_t up_die_temp;
+  uint32_t differential_pressure_side;
+  uint32_t side_die_temp;
+} msp_get_custom_sensors_t;
+
+typedef struct PACKED {
     uint8_t instance;
     uint32_t time_ms;
     float pressure_pa;

@@ -101,7 +101,7 @@ bool check_payload_size(mavlink_channel_t chan, uint16_t max_payload_len);
     }
 
 
-#define GCS_MAVLINK_NUM_STREAM_RATES 10
+#define GCS_MAVLINK_NUM_STREAM_RATES 11
 class GCS_MAVLINK_Parameters
 {
 public:
@@ -288,6 +288,7 @@ public:
         STREAM_EXTRA3,
         STREAM_PARAMS,
         STREAM_ADSB,
+        STREAM_TORNADO,
         NUM_STREAMS
     };
 
@@ -778,6 +779,7 @@ private:
 
     MAV_RESULT handle_servorelay_message(const mavlink_command_int_t &packet);
     bool send_relay_status() const;
+    void send_tornado_sensors();
 
     static bool command_long_stores_location(const MAV_CMD command);
 

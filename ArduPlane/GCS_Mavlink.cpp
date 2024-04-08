@@ -604,7 +604,21 @@ const AP_Param::GroupInfo GCS_MAVLINK_Parameters::var_info[] = {
     // @RebootRequired: True
     // @User: Advanced
     AP_GROUPINFO("ADSB",   9, GCS_MAVLINK_Parameters, streamRates[9],  5),
+
+    // @Param: TORNADO
+    // @DisplayName: Tornado Sensors
+    // @Description: Tornado Sensors
+    // @Units: Hz
+    // @Range: 0 50
+    // @Increment: 1
+    // @RebootRequired: True
+    // @User: Advanced
+    AP_GROUPINFO("TORNADO",   10, GCS_MAVLINK_Parameters, streamRates[10],  1),
     AP_GROUPEND
+};
+
+static const ap_message STREAM_TORNADO_msgs[] = {
+    MSG_TORNADO_SENSORS,
 };
 
 static const ap_message STREAM_RAW_SENSORS_msgs[] = {
@@ -614,6 +628,7 @@ static const ap_message STREAM_RAW_SENSORS_msgs[] = {
     MSG_SCALED_PRESSURE,
     MSG_SCALED_PRESSURE2,
     MSG_SCALED_PRESSURE3,
+    // MSG_TORNADO_SENSORS,
 };
 static const ap_message STREAM_EXTENDED_STATUS_msgs[] = {
     MSG_SYS_STATUS,
@@ -720,6 +735,7 @@ const struct GCS_MAVLINK::stream_entries GCS_MAVLINK::all_stream_entries[] = {
     MAV_STREAM_ENTRY(STREAM_EXTRA3),
     MAV_STREAM_ENTRY(STREAM_PARAMS),
     MAV_STREAM_ENTRY(STREAM_ADSB),
+    MAV_STREAM_ENTRY(STREAM_TORNADO),
     MAV_STREAM_TERMINATOR // must have this at end of stream_entries
 };
 

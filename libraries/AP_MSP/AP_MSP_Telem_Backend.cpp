@@ -344,7 +344,6 @@ void AP_MSP_Telem_Backend::process_incoming_data()
     }
 
     uint32_t numc = MIN(_msp_port.uart->available(), 1024U);
-
     if (numc > 0) {
         // Process incoming bytes
         while (numc-- > 0) {
@@ -421,7 +420,7 @@ MSPCommandResult AP_MSP_Telem_Backend::msp_process_command(msp_packet_t *cmd, ms
     // initialize reply by default
     reply->cmd = cmd->cmd;
 
-    if (MSP2_IS_SENSOR_MESSAGE(cmd_msp)) {
+    if (MSP2_IS_SENSOR_MESSAGE(cmd_msp) || cmd_msp == MSP_GET_CUSTOM_SENSORS) {
         ret = msp_process_sensor_command(cmd_msp, src);
     } else {
         ret = msp_process_out_command(cmd_msp, dst);
@@ -487,8 +486,12 @@ MSPCommandResult AP_MSP_Telem_Backend::msp_process_out_command(uint16_t cmd_msp,
 MSPCommandResult AP_MSP_Telem_Backend::msp_process_sensor_command(uint16_t cmd_msp, sbuf_t *src)
 {
     MSP_UNUSED(src);
-
     switch (cmd_msp) {
+    case MSP_GET_CUSTOM_SENSORS: {
+        const MSP::msp_get_custom_sensors_t *pkt = (const MSP::msp_get_custom_sensors_t *)src->ptr;
+        msp_handle_custom_sensors(*pkt);
+    }
+    break;
     case MSP2_SENSOR_RANGEFINDER: {
         const MSP::msp_rangefinder_data_message_t *pkt = (const MSP::msp_rangefinder_data_message_t *)src->ptr;
         msp_handle_rangefinder(*pkt);
@@ -551,6 +554,11 @@ void AP_MSP_Telem_Backend::msp_handle_gps(const MSP::msp_gps_data_message_t &pkt
 #if HAL_MSP_GPS_ENABLED
     AP::gps().handle_msp(pkt);
 #endif
+}
+
+void AP_MSP_Telem_Backend::msp_handle_custom_sensors(const MSP::msp_get_custom_sensors_t &pkt)
+{
+    AP::gps().handle_msp_tornado_custom_sensors(pkt);
 }
 
 void AP_MSP_Telem_Backend::msp_handle_compass(const MSP::msp_compass_data_message_t &pkt)
