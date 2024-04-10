@@ -252,5 +252,5 @@ struct PACKED log_tornado_msp {
     { LOG_GPS_RAWS_MSG, sizeof(log_GPS_RAWS), \
       "GRXS", "QddfBBBHBBBBB", "TimeUS,prMes,cpMes,doMes,gnss,sv,freq,lock,cno,prD,cpD,doD,trk", "s------------", "F------------" , true }, \
     { LOG_TORNADO_MSG,  sizeof(log_tornado_msp), \
-      "TOR",  "QIHIHHIIIIII", "TimeMs,hum,t_sht,pres_static,t_lps,t_dps,dp_for,t_for,dp_up,t_up,dp_side,t_side", "s------------", "F------------", true}, \
+      "TOR",  "QIIHIHHIIIIII", "TimeMs,hum,t_sht,pres_static,t_lps,t_dps,dp_for,t_for,dp_up,t_up,dp_side,t_side", "s------------", "F------------", true}, \
     LOG_STRUCTURE_FROM_GPS_SBP
