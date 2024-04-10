@@ -1,0 +1,35 @@
+Change of packet needs changes in
+
+MSP:
+msp_sensors.h: line 45
+LogStructure.h: line 70
+(if changing quantity of values) AP_GPS.cpp: line 1378
+(if changing quantity of values) AP_MSP_Telem_Backend.h: line 180
+(if changing quantity of values) LogStructure.h in AP_GPS: line 253
+
+Mavlink:
+common.xml: line 5665 -->rebuild to generate new headers
+(if changing quantity of values) GCS_Common.cpp: line 6226
+
+
+
+
+
+
+
+ AP::logger().WriteStreaming(
+                "FTN", "TimeUS,I,NDn,NF1,NF2,NF3,NF4,NF5,NF6,NF7,NF8,NF9,NF10,NF11,NF12", "s#-zzzzzzzzzzzz", "F--------------", "QBBffffffffffff",
+                AP_HAL::micros64(),
+                i,
+                notch.num_calculated_notch_frequencies,
+                notches[0], notches[1], notches[2], notches[3],
+                notches[4], notches[5], notches[6], notches[7],
+                notches[8], notches[9], notches[10], notches[11]);
+        } else {
+            // log single center frequency
+            AP::logger().WriteStreaming(
+                "FTNS", "TimeUS,I,NF", "s#z", "F--", "QBf",
+                AP_HAL::micros64(),
+                i,
+                notches[0]);
+        }

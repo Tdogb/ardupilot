@@ -6224,9 +6224,6 @@ void GCS_MAVLINK::send_tornado_sensors()
 {
     MSP::msp_get_custom_sensors_t& pkt = AP::gps().get_msp_tornado_custom_sensors_packet();
     mavlink_msg_tornado_sensors_send(chan, pkt.timeMs,pkt.humidity,pkt.temp_SHT,pkt.pressure_lps,pkt.temp_lps,pkt.temp_ds18b20, pkt.differential_pressure_forward, pkt.forward_die_temp, pkt.differential_pressure_up, pkt.up_die_temp, pkt.differential_pressure_side, pkt.side_die_temp);
-    mavlink_msg_debug_send(chan, pkt.timeMs, 0, pkt.humidity);
-    mavlink_msg_debug_send(chan, pkt.timeMs, 1, pkt.pressure_lps);
-    mavlink_msg_debug_send(chan, pkt.timeMs, 2, pkt.temp_ds18b20);
 }
 
 uint16_t GCS_MAVLINK::get_interval_for_stream(GCS_MAVLINK::streams id) const

@@ -1425,7 +1425,6 @@ enum LogMessages : uint8_t {
     LOG_RCOUT2_MSG,
     LOG_RCOUT3_MSG,
     LOG_IDS_FROM_FENCE,
-
     _LOG_LAST_MSG_
 };
 
