@@ -216,6 +216,7 @@ protected:
     virtual MSP::MSPCommandResult msp_process_out_esc_sensor_data(MSP::sbuf_t *dst);
     virtual MSP::MSPCommandResult msp_process_out_rtc(MSP::sbuf_t *dst);
     virtual MSP::MSPCommandResult msp_process_out_rc(MSP::sbuf_t *dst);
+    virtual MSP::MSPCommandResult msp_process_out_time_tornado(MSP::sbuf_t *dst);
 };
 
 #endif  //HAL_MSP_ENABLED

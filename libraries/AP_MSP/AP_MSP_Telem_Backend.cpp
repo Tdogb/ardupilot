@@ -477,6 +477,8 @@ MSPCommandResult AP_MSP_Telem_Backend::msp_process_out_command(uint16_t cmd_msp,
         return msp_process_out_rtc(dst);
     case MSP_RC:
         return msp_process_out_rc(dst);
+    case MSP_SONAR_ALTITUDE:
+        return msp_process_out_time_tornado(&dst);
     default:
         // MSP always requires an ACK even for unsupported messages
         return MSP_RESULT_ACK;
@@ -1053,6 +1055,16 @@ MSPCommandResult AP_MSP_Telem_Backend::msp_process_out_rc(sbuf_t *dst)
     return MSP_RESULT_ACK;
 }
 #endif  // AP_RC_CHANNEL_ENABLED
+
+MSPCommandResult AP_MSP_Telem_Backend::msp_process_out_time_tornado(sbuf_t *dst)
+{
+    const struct PACKED {
+        uint32_t time;
+    } packet {
+        time: AP_HAL::millis(),
+    };
+    sbuf_write_data(dst, &packet, sizeof(packet));
+}
 
 MSPCommandResult AP_MSP_Telem_Backend::msp_process_out_board_info(sbuf_t *dst)
 {
