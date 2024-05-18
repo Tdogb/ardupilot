@@ -57,6 +57,20 @@ typedef struct PACKED {
   uint16_t side_die_temp;
 } msp_get_custom_sensors_t;
 
+typedef struct {
+  float humidity;
+  float temp_SHT;
+  float pressure_lps;
+  float temp_lps;
+  float temp_ds18b20;
+  float differential_pressure_forward;
+  float forward_die_temp;
+  float differential_pressure_up; 
+  float up_die_temp;
+  float differential_pressure_side;
+  float side_die_temp;
+} msp_custom_sensors_formatted_t;
+
 typedef struct PACKED {
     uint8_t instance;
     uint32_t time_ms;

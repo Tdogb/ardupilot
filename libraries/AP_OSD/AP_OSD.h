@@ -189,6 +189,7 @@ private:
     AP_OSD_Setting vspeed{true, 24, 9};
 #if AP_RPM_ENABLED
     AP_OSD_Setting rrpm{false, 2, 2};
+    AP_OSD_Setting tornado{true,9,2};
 #endif
 #if HAL_WITH_ESC_TELEM
     AP_OSD_Setting esc_temp {false, 24, 13};
@@ -261,6 +262,7 @@ private:
     void draw_home(uint8_t x, uint8_t y);
     void draw_throttle(uint8_t x, uint8_t y);
     void draw_heading(uint8_t x, uint8_t y);
+    void draw_tornado(uint8_t x, uint8_t y);
 #if AP_RPM_ENABLED
     void draw_rrpm(uint8_t x, uint8_t y);
 #endif

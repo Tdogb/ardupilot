@@ -1394,12 +1394,34 @@ void AP_GPS::handle_msp_tornado_custom_sensors(const MSP::msp_get_custom_sensors
         temp_side_ms4425: pkt.side_die_temp,
     };
     AP::logger().WriteBlock(&pkt2, sizeof(pkt2));
+
+    uint32_t shum = (625 * pkt.humidity) >> 12;
+    tornadoFormattedValues.humidity = (float)shum / 100.0f;
+
+    uint32_t stemp = ((4375 * pkt.temp_SHT) >> 14) - 4500;
+    tornadoFormattedValues.temp_SHT = (float)stemp / 100.0f;
+
+    uint32_t spres = pkt.pressure_lps;
+    if (spres & 0x800000) {
+        spres = (0xff000000 | spres);
+    }
+    tornadoFormattedValues.pressure_lps = (float)spres / 4096.0f;
+
+    tornadoFormattedValues.temp_lps = (float)pkt.temp_lps / 4096.0f;
+
+    tornadoFormattedValues.temp_ds18b20 = (float)pkt.temp_ds18b20 / 100.0f;
 }
 
 MSP::msp_get_custom_sensors_t& AP_GPS::get_msp_tornado_custom_sensors_packet()
 {
     return pkt_copy;
 }
+
+MSP::msp_custom_sensors_formatted_t& AP_GPS::get_tornado_custom_sensor_pointer()
+{
+    return tornadoFormattedValues;
+}
+
 #if HAL_EXTERNAL_AHRS_ENABLED
 
 bool AP_GPS::get_first_external_instance(uint8_t& instance) const
