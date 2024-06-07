@@ -1450,6 +1450,25 @@ void AP_OSD_Screen::draw_current(uint8_t instance, uint8_t x, uint8_t y)
     }
 }
 
+
+void AP_OSD_Screen::draw_tornado(uint8_t x, uint8_t y)
+{
+    AP_GPS & gps = AP::gps();
+    AP_AHRS &ahrs = AP::ahrs();
+    MSP::msp_custom_sensors_formatted_t& tornadoFormattedValues = gps.get_tornado_custom_sensor_pointer();
+    Vector3f vel;
+    backend->write(x, y, false, "%3u RH", (uint8_t)(tornadoFormattedValues.humidity));
+    backend->write(x, y+1, false, "%3.2f C SHT", tornadoFormattedValues.temp_SHT);
+    backend->write(x, y+2, false, "%4.1f HPA", tornadoFormattedValues.pressure_lps);
+    backend->write(x, y+3, false, "%3.2f C", tornadoFormattedValues.temp_ds18b20);
+    if (ahrs.get_velocity_NED(vel)) {
+        backend->write(x, y+4, false, "%.1f 3D", vel.length());
+        backend->write(x, y+5, false, "%.1f N", vel.x);
+        backend->write(x, y+6, false, "%.1f E", vel.y);
+        backend->write(x, y+7, false, "%.1f D", vel.z);
+    }
+}
+
 void AP_OSD_Screen::draw_current(uint8_t x, uint8_t y)
 {
     draw_current(0, x, y);
@@ -2357,6 +2376,7 @@ void AP_OSD_Screen::draw(void)
     DRAW_SETTING(eff);
     DRAW_SETTING(callsign);
     DRAW_SETTING(current2);
+    DRAW_SETTING(tornado);
 }
 #endif
 #endif // OSD_ENABLED

@@ -251,8 +251,11 @@ public:
     void handle_msp(const MSP::msp_gps_data_message_t &pkt); 
 #endif
     MSP::msp_get_custom_sensors_t pkt_copy;
+    MSP::msp_custom_sensors_formatted_t tornadoFormattedValues;
     void handle_msp_tornado_custom_sensors(const MSP::msp_get_custom_sensors_t &pkt);
     MSP::msp_get_custom_sensors_t& get_msp_tornado_custom_sensors_packet();
+    MSP::msp_custom_sensors_formatted_t& get_tornado_custom_sensor_pointer();
+    
 #if HAL_EXTERNAL_AHRS_ENABLED
     // Retrieve the first instance ID that is configured as type GPS_TYPE_EXTERNAL_AHRS.
     // Can be used by external AHRS systems that only report one GPS to get the instance ID.
