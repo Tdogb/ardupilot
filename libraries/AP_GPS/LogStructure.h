@@ -220,21 +220,26 @@ struct PACKED log_GPS_RAWS {
 // @Field: temp_up_ms4425: Sensor value
 // @Field: temp_side_ms4425: Sensor value
 
+// struct PACKED log_tornado_msp {
+//     LOG_PACKET_HEADER;
+//     uint64_t time_us;
+//     uint32_t time_msec_mcu; /*<  Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.*/
+//     uint16_t humidity; /*<  Humidity*/
+//     uint16_t temp_sht30; /*<  SHT30 Temp*/
+//     uint32_t static_pressure; /*<  Static Pressure*/
+//     uint16_t temp_lps; /*<  LPS Temp*/
+//     uint16_t temp_ds18b20; /*<  DS18B20 Temp*/
+// };
+
 struct PACKED log_tornado_msp {
     LOG_PACKET_HEADER;
     uint64_t time_us;
     uint32_t time_msec_mcu; /*<  Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.*/
-    uint16_t humidity; /*<  Humidity*/
-    uint16_t temp_sht30; /*<  SHT30 Temp*/
-    uint32_t static_pressure; /*<  Static Pressure*/
-    uint16_t temp_lps; /*<  LPS Temp*/
-    uint16_t temp_ds18b20; /*<  DS18B20 Temp*/
-    // uint32_t diff_pressure_forward; /*<  Diff Pressure Forward*/
-    // uint16_t temp_forward_ms4425; /*<  MS4425 Forward Temp*/
-    // uint32_t diff_pressure_up; /*<  Diff Pressure Up*/
-    // uint16_t temp_up_ms4425; /*<  MS4425 Up Temp*/
-    // uint32_t diff_pressure_side; /*<  Diff Pressure Side*/
-    // uint16_t temp_side_ms4425; /*<  MS4425 Side Temp*/
+    float humidity; /*<  Humidity*/
+    float temp_sht30; /*<  SHT30 Temp*/
+    float static_pressure; /*<  Static Pressure*/
+    float temp_lps; /*<  LPS Temp*/
+    float temp_ds18b20; /*<  DS18B20 Temp*/
 };
 
 #define LOG_STRUCTURE_FROM_GPS \
@@ -253,5 +258,5 @@ struct PACKED log_tornado_msp {
     { LOG_GPS_RAWS_MSG, sizeof(log_GPS_RAWS), \
       "GRXS", "QddfBBBHBBBBB", "TimeUS,prMes,cpMes,doMes,gnss,sv,freq,lock,cno,prD,cpD,doD,trk", "s------------", "F------------" , true }, \
     { LOG_TORNADO_MSG,  sizeof(log_tornado_msp), \
-      "TORN", "QIIHIHH", "TimeUS,T_m,hum,t_s,pres,t_l,t_dps", "s------", "F------", true}, \
+      "TORN", "QIfffff", "TimeUS,T_m,hum,t_s,pres,t_l,t_dps", "s------", "F------", true}, \
     LOG_STRUCTURE_FROM_GPS_SBP

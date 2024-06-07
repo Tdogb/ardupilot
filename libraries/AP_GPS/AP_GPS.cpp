@@ -1379,23 +1379,6 @@ void AP_GPS::handle_msp_tornado_custom_sensors(const MSP::msp_get_custom_sensors
 {
     pkt_copy = pkt;
     const uint64_t time_us = AP_HAL::micros64();
-    struct log_tornado_msp pkt2{
-        LOG_PACKET_HEADER_INIT(LOG_TORNADO_MSG),
-        time_us      :   time_us,
-        time_msec_mcu       : pkt.timeMs,
-        humidity      : pkt.humidity,
-        temp_sht30          : pkt.temp_SHT,
-        static_pressure          : pkt.pressure_lps,
-        temp_lps          : pkt.temp_lps,
-        temp_ds18b20          : pkt.temp_ds18b20,
-        // diff_pressure_forward  : pkt.differential_pressure_forward,
-        // temp_forward_ms4425       : pkt.forward_die_temp,
-        // diff_pressure_up     : pkt.differential_pressure_up,
-        // temp_up_ms4425      : pkt.up_die_temp,
-        // diff_pressure_side    : pkt.differential_pressure_side,
-        // temp_side_ms4425  : pkt.side_die_temp,
-    };
-    AP::logger().WriteBlock(&pkt2, sizeof(pkt2));
 
     uint32_t shum = (625 * pkt.humidity) >> 12;
     tornadoFormattedValues.humidity = (float)shum / 100.0f;
@@ -1412,6 +1395,17 @@ void AP_GPS::handle_msp_tornado_custom_sensors(const MSP::msp_get_custom_sensors
     tornadoFormattedValues.temp_lps = (float)pkt.temp_lps / 4096.0f;
 
     tornadoFormattedValues.temp_ds18b20 = (float)pkt.temp_ds18b20 / 100.0f;
+    struct log_tornado_msp pkt2{
+        LOG_PACKET_HEADER_INIT(LOG_TORNADO_MSG),
+        time_us      :   time_us,
+        time_msec_mcu       : pkt.timeMs,
+        humidity      : tornadoFormattedValues.humidity,
+        temp_sht30          : tornadoFormattedValues.temp_SHT,
+        static_pressure          : tornadoFormattedValues.pressure_lps,
+        temp_lps          : tornadoFormattedValues.temp_lps,
+        temp_ds18b20          : tornadoFormattedValues.temp_ds18b20,
+    };
+    AP::logger().WriteBlock(&pkt2, sizeof(pkt2));
 }
 
 MSP::msp_get_custom_sensors_t& AP_GPS::get_msp_tornado_custom_sensors_packet()
