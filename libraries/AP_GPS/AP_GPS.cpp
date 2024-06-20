@@ -1394,7 +1394,7 @@ void AP_GPS::handle_msp_tornado_custom_sensors(const MSP::msp_get_custom_sensors
 
     tornadoFormattedValues.temp_lps = (float)pkt.temp_lps / 4096.0f;
 
-    tornadoFormattedValues.temp_ds18b20 = (float)pkt.temp_ds18b20 / 100.0f;
+    tornadoFormattedValues.temp_ds18b20 = (float)pkt.temp_ds18b20 / 128.0f;
     struct log_tornado_msp pkt2{
         LOG_PACKET_HEADER_INIT(LOG_TORNADO_MSG),
         time_us      :   time_us,
