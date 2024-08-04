@@ -242,6 +242,8 @@ private:
 
     CalibrationState calibration_state[AIRSPEED_MAX_SENSORS];
 
+    uint8_t tornado_airspeed_idx = 0;
+
     struct airspeed_state {
         float   raw_airspeed;
         float   airspeed;

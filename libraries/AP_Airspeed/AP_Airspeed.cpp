@@ -441,7 +441,16 @@ void AP_Airspeed::allocate()
             sensor[i] = new AP_Airspeed_External(*this, i);
 #endif
             break;
+
+        case TYPE_TORNADO_ASPD:
+            sensor[i] = new AP_Airspeed_Tornado(*this, i, tornado_airspeed_idx);
+            tornado_airspeed_idx++;
+            break;
         }
+
+        sensor[i]
+
+
         if (sensor[i] && !sensor[i]->init()) {
             GCS_SEND_TEXT(MAV_SEVERITY_ERROR, "Airspeed %u init failed", i + 1);
             delete sensor[i];
