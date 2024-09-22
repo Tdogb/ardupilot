@@ -175,7 +175,7 @@ void AP_Airspeed_AUAV::_collect(uint8_t sensor_number)
     PComp = (uint32_t) (PCorrt * (float)0xFFFFFF);
     pressure_digital[sensor_number] = PComp;
     _last_sample_time_ms[sensor_number] = AP_HAL::millis();
-}
+} 
 
 void AP_Airspeed_AUAV::_measure_abs(uint8_t sensor_number)
 {
