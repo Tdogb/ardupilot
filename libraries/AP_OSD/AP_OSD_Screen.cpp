@@ -2550,6 +2550,18 @@ void AP_OSD_Screen::draw_rngf(uint8_t x, uint8_t y)
 }
 #endif
 
+// Tornado OSD
+
+void AP_OSD_Screen::draw_tornado_intercom(uint8_t x, uint8_t y)
+{
+
+}
+
+void AP_OSD_Screen::draw_tornado_altitude_tracking(uint8_t x, uint8_t y)
+{
+    
+}
+
 #define DRAW_SETTING(n) if (n.enabled) draw_ ## n(n.xpos, n.ypos)
 
 #if HAL_WITH_OSD_BITMAP || HAL_WITH_MSP_DISPLAYPORT

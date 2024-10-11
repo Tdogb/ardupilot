@@ -164,6 +164,8 @@
   #error AP_OAPathPlanner relies on AP_FENCE_ENABLED which is disabled
 #endif
 
+#include <AP_Tornado/AP_tornado.h>
+
 #if HAL_ADSB_ENABLED
 #include "avoidance_adsb.h"
 #endif
