@@ -1044,14 +1044,24 @@ const AP_Param::GroupInfo AP_OSD_Screen::var_info[] = {
 	// @Range: 0 15
 	AP_SUBGROUPINFO(rrpm, "RPM", 62, AP_OSD_Screen, AP_OSD_Setting),
 
-    // @Param: TOR_INT
-    // @DisplayName: TOR_INT
+    // @Param: TOR_INT_X
+    // @DisplayName: TOR_INT_X
+    // @Description: Show location of other drone on map
+    // @Range: 0 21
+
+    // @Param: TOR_INT_Y
+    // @DisplayName: TOR_INT_Y
     // @Description: Show location of other drone on map
     // @Range: 0 21
     AP_SUBGROUPINFO(tornado_intercom, "TOR_INT", 63, AP_OSD_Screen, AP_OSD_Setting),
 
-    // @Param: TOR_ALT
-    // @DisplayName: TOR_ALT
+    // @Param: TOR_ALT_X
+    // @DisplayName: TOR_ALT_X
+    // @Description: Show location of other drone on map
+    // @Range: 0 21
+
+    // @Param: TOR_ALT_Y
+    // @DisplayName: TOR_ALT_Y
     // @Description: Show location of other drone on map
     // @Range: 0 21
     AP_SUBGROUPINFO(tornado_altitude_tracking, "TOR_ALT", 64, AP_OSD_Screen, AP_OSD_Setting),

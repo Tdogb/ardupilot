@@ -4955,7 +4955,7 @@ bool GCS_MAVLINK::location_from_command_t(const mavlink_command_int_t &in, Locat
     }
 
     // integer storage imposes limits on the altitudes we can accept:
-    if (isnan(in.z)) { //|| fabsf(in.z) > LOCATION_ALT_MAX_M
+    if (isnan(in.z) || fabsf(in.z) > LOCATION_ALT_MAX_M) {
         return false;
     }
 
@@ -5126,28 +5126,26 @@ void GCS_MAVLINK::handle_command_long(const mavlink_message_t &msg)
 
 MAV_RESULT GCS_MAVLINK::handle_command_do_set_roi(const Location &roi_loc)
 {
-    
+#if HAL_MOUNT_ENABLED
+    AP_Mount *mount = AP::mount();
+    if (mount == nullptr) {
+        return MAV_RESULT_UNSUPPORTED;
+    }
+
+    // sanity check location
+    if (!roi_loc.check_latlng()) {
+        return MAV_RESULT_FAILED;
+    }
+
+    if (roi_loc.lat == 0 && roi_loc.lng == 0 && roi_loc.alt == 0) {
+        mount->clear_roi_target();
+    } else {
+        mount->set_roi_target(roi_loc);
+    }
     return MAV_RESULT_ACCEPTED;
-// #if HAL_MOUNT_ENABLED
-//     AP_Mount *mount = AP::mount();
-//     if (mount == nullptr) {
-//         return MAV_RESULT_UNSUPPORTED;
-//     }
-
-//     // sanity check location
-//     if (!roi_loc.check_latlng()) {
-//         return MAV_RESULT_FAILED;
-//     }
-
-//     if (roi_loc.lat == 0 && roi_loc.lng == 0 && roi_loc.alt == 0) {
-//         mount->clear_roi_target();
-//     } else {
-//         mount->set_roi_target(roi_loc);
-//     }
-//     return MAV_RESULT_ACCEPTED;
-// #else
-//     return MAV_RESULT_UNSUPPORTED;
-// #endif
+#else
+    return MAV_RESULT_UNSUPPORTED;
+#endif
 }
 
 
