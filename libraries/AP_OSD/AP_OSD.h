@@ -34,6 +34,8 @@
 #endif
 #include <AC_Fence/AC_Fence_config.h>
 #include <AP_RangeFinder/AP_RangeFinder_config.h>
+#include <AP_Tornado/AP_Tornado.h>
+#include <AP_Follow/AP_Follow.h>
 
 class AP_OSD_Backend;
 class AP_MSP;
@@ -255,6 +257,9 @@ private:
     AP_OSD_Setting batt_bar{true, 1, 1};
     AP_OSD_Setting arming{true, 1, 1};
 
+    AP_OSD_Setting tornado_intercom{true,10,10};
+    AP_OSD_Setting tornado_altitude_tracking{true,15,15};
+
 #if HAL_WITH_MSP_DISPLAYPORT
     // Per screen HD resolution options (currently supported only by DisplayPort)
     AP_Int8 txt_resolution;
@@ -348,7 +353,8 @@ private:
     void draw_rc_active_antenna(uint8_t x, uint8_t y);    
     void draw_rc_lq(uint8_t x, uint8_t y);
 #endif
-
+    void draw_tornado_intercom(uint8_t x, uint8_t y);
+    void draw_tornado_altitude_tracking(uint8_t x, uint8_t y);
     struct {
         bool load_attempted;
         const char *str;
