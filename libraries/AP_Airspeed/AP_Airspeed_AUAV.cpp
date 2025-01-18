@@ -124,7 +124,7 @@ found_sensor:
 // start a measurement
 void AP_Airspeed_AUAV::_measure(uint8_t sensor_number)
 {
-    _measurement_started_ms[sensor_number] = 0;
+    _measurement_started_ms[sensor_number] = 0; 
     uint8_t cmd = 0xAA;
     if (_dev->transfer(&cmd, 1, nullptr, 0)) {
         _measurement_started_ms[sensor_number] = AP_HAL::millis();
