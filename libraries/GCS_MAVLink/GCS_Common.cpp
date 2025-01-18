@@ -5126,9 +5126,8 @@ void GCS_MAVLINK::handle_command_long(const mavlink_message_t &msg)
 
 MAV_RESULT GCS_MAVLINK::handle_command_do_set_roi(const Location &roi_loc)
 {
-#if HAL_MOUNT_ENABLED
-    AP_Mount *mount = AP::mount();
-    if (mount == nullptr) {
+    AP_Tornado *tornado = AP_Tornado::get_singleton();
+    if (tornado == nullptr) {
         return MAV_RESULT_UNSUPPORTED;
     }
 
@@ -5138,14 +5137,11 @@ MAV_RESULT GCS_MAVLINK::handle_command_do_set_roi(const Location &roi_loc)
     }
 
     if (roi_loc.lat == 0 && roi_loc.lng == 0 && roi_loc.alt == 0) {
-        mount->clear_roi_target();
+        tornado->clear_alt_target();
     } else {
-        mount->set_roi_target(roi_loc);
+        tornado->set_alt_target(roi_loc);
     }
     return MAV_RESULT_ACCEPTED;
-#else
-    return MAV_RESULT_UNSUPPORTED;
-#endif
 }
 
 

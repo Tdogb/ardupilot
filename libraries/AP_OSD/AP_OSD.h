@@ -234,6 +234,8 @@ private:
     AP_OSD_Setting hgt_abvterr{false, 23, 7};
     AP_OSD_Setting fence{false, 14, 9};
     AP_OSD_Setting rngf;
+    AP_OSD_Setting tornado_intercom{true,10,2};
+    AP_OSD_Setting tornado_altitude_tracking{true,15,2};
 #if HAL_PLUSCODE_ENABLE
     AP_OSD_Setting pluscode;
 #endif
@@ -256,9 +258,6 @@ private:
     AP_OSD_Setting cell_volt{true, 1, 1};
     AP_OSD_Setting batt_bar{true, 1, 1};
     AP_OSD_Setting arming{true, 1, 1};
-
-    AP_OSD_Setting tornado_intercom{true,10,10};
-    AP_OSD_Setting tornado_altitude_tracking{true,15,15};
 
 #if HAL_WITH_MSP_DISPLAYPORT
     // Per screen HD resolution options (currently supported only by DisplayPort)

@@ -1043,30 +1043,7 @@ const AP_Param::GroupInfo AP_OSD_Screen::var_info[] = {
 	// @Description: Vertical position on screen
 	// @Range: 0 15
 	AP_SUBGROUPINFO(rrpm, "RPM", 62, AP_OSD_Screen, AP_OSD_Setting),
-
-    // @Param: TOR_INT_X
-    // @DisplayName: TOR_INT_X
-    // @Description: Show location of other drone on map
-    // @Range: 0 21
-
-    // @Param: TOR_INT_Y
-    // @DisplayName: TOR_INT_Y
-    // @Description: Show location of other drone on map
-    // @Range: 0 21
-    AP_SUBGROUPINFO(tornado_intercom, "TOR_INT", 63, AP_OSD_Screen, AP_OSD_Setting),
-
-    // @Param: TOR_ALT_X
-    // @DisplayName: TOR_ALT_X
-    // @Description: Show location of other drone on map
-    // @Range: 0 21
-
-    // @Param: TOR_ALT_Y
-    // @DisplayName: TOR_ALT_Y
-    // @Description: Show location of other drone on map
-    // @Range: 0 21
-    AP_SUBGROUPINFO(tornado_altitude_tracking, "TOR_ALT", 64, AP_OSD_Screen, AP_OSD_Setting),
 #endif
-
     AP_GROUPEND
 };
 
@@ -2576,24 +2553,24 @@ void AP_OSD_Screen::draw_rngf(uint8_t x, uint8_t y)
 
 void AP_OSD_Screen::draw_tornado_intercom(uint8_t x, uint8_t y)
 {
-    // AP_Follow *follow = AP_Follow::get_singleton();
-    // Vector3f dist_ned;
-    // Vector3f dist_with_ofs;
-    // Vector3f vel_ned;
-    // follow->get_target_dist_and_vel_ned(dist_ned, dist_with_ofs, vel_ned);
-    // backend->write(x,y,false,"%f",safe_sqrt(powf(dist_ned[0],2) + powf(dist_ned[1],2)));
+    AP_Follow *follow = AP_Follow::get_singleton();
+    Vector3f dist_ned;
+    Vector3f dist_with_ofs;
+    Vector3f vel_ned;
+    follow->get_target_dist_and_vel_ned(dist_ned, dist_with_ofs, vel_ned);
+    backend->write(x,y,false,"%03d",(int)safe_sqrt(powf(dist_ned[0],2) + powf(dist_ned[1],2)));
 }
 
 void AP_OSD_Screen::draw_tornado_altitude_tracking(uint8_t x, uint8_t y)
 {
-    // AP_Tornado *tornado = AP_Tornado::get_singleton();
-    // int8_t num_arrows = tornado->get_num_alt_arrows();
-    // bool is_arrow_up = num_arrows > 0;
-    // char arrow = get_arrow_font_index(is_arrow_up ? 0 : 180);
-    // for (int i = 0; i < abs(num_arrows); i++) {
-    //     int dir = is_arrow_up ? -i : i;
-    //     backend->write(x,y+dir,false,"%c",arrow);
-    // }
+    AP_Tornado *tornado = AP_Tornado::get_singleton();
+    int8_t num_arrows = tornado->get_num_alt_arrows();
+    bool is_arrow_up = num_arrows > 0;
+    char arrow = get_arrow_font_index(is_arrow_up ? 0 : 18000);
+    for (int i = 0; i < abs(num_arrows); i++) {
+        int dir = is_arrow_up ? -i : i;
+        backend->write(x,y+dir,false,"%c",arrow);
+    }
 }
 
 #define DRAW_SETTING(n) if (n.enabled) draw_ ## n(n.xpos, n.ypos)
